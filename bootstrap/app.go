@@ -1,12 +1,18 @@
 package bootstrap
 
-import "goto/config"
+import (
+	"goto/config"
+
+	"goto/database/mysql"
+	"goto/database/redis"
+)
 
 func init() {
-
+	config.InitConfig("config")
+	mysql.Conn()
+	redis.Conn()
 }
 
 func Start() {
-	config.InitConfig("config")
-	mysqlInit()
+	
 }

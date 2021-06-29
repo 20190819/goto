@@ -1,5 +1,5 @@
 package main
 
-func main(){
-	app:=
+func main() {
+	// app:=
 }
