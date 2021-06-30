@@ -1,8 +1,9 @@
 package routes
 
 import (
-	"github.com/gin-gonic/gin"
 	"goto/app/http/middleware"
+
+	"github.com/gin-gonic/gin"
 )
 
 var Route = gin.Default()

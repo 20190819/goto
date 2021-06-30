@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/spf13/viper"
+	"strconv"
 	"strings"
 )
 
@@ -14,6 +15,10 @@ type CustomClaims struct {
 	Id      uint64
 	ExpTime int64
 	jwt.StandardClaims
+}
+
+func CreateToken(*JwtServer) (map[string]interface{}, error) {
+	maxAage, _ := strconv.Atoi(viper.GetString("jwt.expire"))
 }
 
 func (*JwtServer) AuthToken(token string) bool {
