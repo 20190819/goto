@@ -11,6 +11,7 @@ func Init() {
 	migrates := make(map[string]interface{})
 	migrates["user"] = User{}
 	mysql.AutoMigrate(migrates)
+
 	// 路由注册
 	routeItems := make([]routes.Item, 2)
 	authController := controllers.AuthController{}

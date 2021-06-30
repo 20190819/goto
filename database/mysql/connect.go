@@ -2,11 +2,10 @@ package mysql
 
 import (
 	"fmt"
-	"time"
-
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"time"
 )
 
 var DB *gorm.DB
@@ -28,7 +27,12 @@ var configdb configDB
 var dns string
 
 func init() {
-	configdb = configDB{
+	//dns = fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=%t&loc=%s",
+	//	configdb.Username, configdb.Password, configdb.Host, configdb.Port, configdb.Database, configdb.Charset, true, "Local")
+}
+
+func Conn() {
+	configdb=configDB{
 		Host:           viper.GetString("mysql.host"),
 		Port:           viper.GetUint32("mysql.port"),
 		Username:       viper.GetString("mysql.username"),
@@ -39,22 +43,17 @@ func init() {
 		MaxIdleConnect: viper.GetInt("mysql.max_idle_connect"),
 		MaxLifeSeconds: viper.GetInt("mysql.max_life_seconds"),
 	}
-	dns = fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=%t&loc=%s",
-		configdb.Username, configdb.Password, configdb.Host, configdb.Port, configdb.Database, configdb.Charset, true, "Local")
-}
-
-func Conn() {
+	fmt.Println("dns8888>>>",configdb)
 	DB, err = gorm.Open(mysql.Open(dns), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
 		// Logger: //,
 	})
 
 	sqlDB, err := DB.DB()
-	sqlDB.SetMaxOpenConns(configdb.MaxConnect)
-	sqlDB.SetConnMaxIdleTime(time.Duration(configdb.MaxIdleConnect))
-	sqlDB.SetConnMaxLifetime(time.Duration(configdb.MaxLifeSeconds))
-
 	if err != nil {
 		panic(err)
 	}
+	sqlDB.SetMaxOpenConns(configdb.MaxConnect)
+	sqlDB.SetConnMaxIdleTime(time.Duration(configdb.MaxIdleConnect))
+	sqlDB.SetConnMaxLifetime(time.Duration(configdb.MaxLifeSeconds))
 }
