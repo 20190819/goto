@@ -3,6 +3,7 @@ module goto
 go 1.15
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/gin-gonic/gin v1.7.2
 	github.com/gomodule/redigo v1.8.5
 	github.com/rs/cors v1.7.0

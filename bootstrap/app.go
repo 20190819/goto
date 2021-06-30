@@ -1,10 +1,13 @@
 package bootstrap
 
 import (
+	"goto/app/models/user"
 	"goto/config"
-
 	"goto/database/mysql"
 	"goto/database/redis"
+	"goto/routes"
+
+	"github.com/gin-gonic/gin"
 )
 
 func init() {
@@ -13,6 +16,7 @@ func init() {
 	redis.Conn()
 }
 
-func Start() {
-	
+func Start() *gin.Engine {
+	user.Init()
+	return routes.Route
 }

@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
+	"goto/app/http/middleware"
 )
 
 var Route = gin.Default()
@@ -16,7 +17,7 @@ type Item struct {
 }
 
 func init() {
-	Route.Use(middleware.Cros())
+	Route.Use(middleware.Cors())
 	RouteGroup = Route.Group("api")
 	AuthRouteGroup = Route.Group("api", middleware.ApiAuth())
 }
