@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"fmt"
 	"time"
 
 	redigo "github.com/gomodule/redigo/redis"
@@ -18,16 +19,16 @@ type configRedis struct {
 	MaxActive   int
 }
 
-var conf = configRedis{
-	Host:        viper.GetString("redis.host"),
-	Port:        viper.GetUint32("redis.port"),
-	Password:    viper.GetString("redis.password"),
-	MaxIdle:     viper.GetInt("redis.max_idle"),
-	IdleTimeout: viper.GetDuration("redis.idle_timeout"),
-	MaxActive:   viper.GetInt("redis.max_active"),
-}
-
 func Conn() {
+	conf := configRedis{
+		Host:        viper.GetString("redis.host"),
+		Port:        viper.GetUint32("redis.port"),
+		Password:    viper.GetString("redis.password"),
+		MaxIdle:     viper.GetInt("redis.max_idle"),
+		IdleTimeout: viper.GetDuration("redis.idle_timeout"),
+		MaxActive:   viper.GetInt("redis.max_active"),
+	}
+	fmt.Println("redis conf >>>", conf)
 	DB = &redigo.Pool{
 		MaxIdle:     conf.MaxIdle, //空闲数
 		IdleTimeout: conf.IdleTimeout * time.Second,

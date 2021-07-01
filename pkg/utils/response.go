@@ -2,8 +2,11 @@ package utils
 
 import "github.com/gin-gonic/gin"
 
-func Success() {
-
+func Success(ctx *gin.Context) {
+	ctx.JSON(200, gin.H{
+		"code": 0,
+		"msg":  "请求成功",
+	})
 }
 
 func ErrorResponse(ctx *gin.Context, status int, code int, msg string) {

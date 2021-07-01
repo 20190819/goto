@@ -26,11 +26,6 @@ type configDB struct {
 var configdb configDB
 var dns string
 
-func init() {
-	//dns = fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=%t&loc=%s",
-	//	configdb.Username, configdb.Password, configdb.Host, configdb.Port, configdb.Database, configdb.Charset, true, "Local")
-}
-
 func Conn() {
 	configdb=configDB{
 		Host:           viper.GetString("mysql.host"),
@@ -43,7 +38,9 @@ func Conn() {
 		MaxIdleConnect: viper.GetInt("mysql.max_idle_connect"),
 		MaxLifeSeconds: viper.GetInt("mysql.max_life_seconds"),
 	}
-	fmt.Println("dns8888>>>",configdb)
+	dns = fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=%t&loc=%s",
+		configdb.Username, configdb.Password, configdb.Host, configdb.Port, configdb.Database, configdb.Charset, true, "Local")
+	fmt.Println("mysql conf>>>",dns)
 	DB, err = gorm.Open(mysql.Open(dns), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
 		// Logger: //,
