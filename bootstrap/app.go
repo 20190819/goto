@@ -21,6 +21,7 @@ func Start() *gin.Engine {
 	routes.Route.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "hello my goto framework")
 	})
-	user.Init()
+	user.Migration()
+	routes.RouterAuth()
 	return routes.Route
 }
