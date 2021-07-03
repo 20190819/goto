@@ -10,5 +10,5 @@ func RouterAuth() {
 	routeItems = append(routeItems, Item{Method: "post", Url: "register", Action: authController.Register})
 	routeItems = append(routeItems, Item{Method: "post", Url: "login", Action: authController.Login})
 
-	Register(routeItems, AuthRouteGroup)
+	Register(routeItems, RouteGroup)
 }
