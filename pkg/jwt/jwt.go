@@ -17,7 +17,7 @@ type CustomClaims struct {
 	jwt.StandardClaims
 }
 
-func CreateToken(*JwtServer) (map[string]interface{}, error) {
+func (*JwtServer) CreateToken() (map[string]interface{}, error) {
 	maxAage, _ := strconv.Atoi(viper.GetString("jwt.expire"))
 	expTime := time.Now().Add(time.Duration(maxAage) * time.Second).Unix()
 	customClaims := CustomClaims{
@@ -27,7 +27,7 @@ func CreateToken(*JwtServer) (map[string]interface{}, error) {
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, customClaims)
-	tokenStr, err := token.SignedString(viper.GetString("jwt.secret"))
+	tokenStr, err := token.SignedString([]byte(viper.GetString("jwt.secret")))
 	if err != nil {
 		return nil, err
 	}
