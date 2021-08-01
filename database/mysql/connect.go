@@ -10,7 +10,8 @@ import (
 
 var DB *gorm.DB
 var err error
-
+// https://810.workarea7.live/view_video.php?viewkey=db1e35d0ba414e7a2fff&page=1&viewtype=basic&category=top
+//  https://810.workarea7.live/view_video.php?viewkey=415c13e7f2f8940b47f5&page=1&viewtype=basic&category=mr
 type configDB struct {
 	Host           string
 	Port           uint32
@@ -28,15 +29,15 @@ var dns string
 
 func Conn() {
 	configdb=configDB{
-		Host:           viper.GetString("mysql.host"),
-		Port:           viper.GetUint32("mysql.port"),
-		Username:       viper.GetString("mysql.username"),
-		Password:       viper.GetString("mysql.password"),
-		Database:       viper.GetString("mysql.database"),
-		Charset:        viper.GetString("mysql.charset"),
-		MaxConnect:     viper.GetInt("mysql.max_connect"),
-		MaxIdleConnect: viper.GetInt("mysql.max_idle_connect"),
-		MaxLifeSeconds: viper.GetInt("mysql.max_life_seconds"),
+		Host:           viper.GetString("MYSQL_HOST"),
+		Port:           viper.GetUint32("MYSQL_PORT"),
+		Username:       viper.GetString("MYSQL_USERNAME"),
+		Password:       viper.GetString("MYSQL_PASSWORD"),
+		Database:       viper.GetString("DATABASE"),
+		Charset:        viper.GetString("CHARSET"),
+		MaxConnect:     viper.GetInt("MAX_CONNECT"),
+		MaxIdleConnect: viper.GetInt("MAX_IDLE_CONNECT"),
+		MaxLifeSeconds: viper.GetInt("MAX_LIFE_SECONDS"),
 	}
 	dns = fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=%t&loc=%s",
 		configdb.Username, configdb.Password, configdb.Host, configdb.Port, configdb.Database, configdb.Charset, true, "Local")

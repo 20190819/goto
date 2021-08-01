@@ -12,7 +12,7 @@ import (
 )
 
 func init() {
-	config.InitConfig(".env")
+	config.InitConfig("./")
 }
 
 func Start() *gin.Engine {
